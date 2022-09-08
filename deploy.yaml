@@ -1,0 +1,36 @@
+--- #deploy file to env
+
+- hosts: dev
+  become: yes
+  user: ansible
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: copy-to-node
+      ansible.builtin.copy:
+        src: {{ source }}
+        dest: {{ destin }}
+        mode: 755
+    
+    - name: deploy-tomcat
+      ansible.builtin.copy:
+        src: {{ destin }}
+        dest: root/server/apache*tomcat/webapps/ 
+      script: /root/apa*tomcat*/bin/startup.sh
+
+    - name: start-docker
+      ansible.builtin.service:
+        name: docker
+        state: start
+      notify:
+        - run-docker
+
+  handlers:
+    - name: run-docker
+      command: sh ' docker build -it arp-tomcat:1 .'
+      command: sh ' docker run -itdp "80:8080" arp-tomcat:1'
+
+  vars:
+    source: pass
+    destin: /home/ansible

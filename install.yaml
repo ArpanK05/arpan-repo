@@ -1,0 +1,21 @@
+--- #this is a paybook for installations
+
+- hosts: dev 
+  become: yes
+  user: ansible
+  connection: ssh
+  gather_facts: yes
+
+  tasks:
+    - name: copy to node
+      ansible.builtin.copy:
+        src: /home/ansible/basicinstall.sh
+        dest: /home/ansible
+        mode: 755
+      notify:
+        - start
+  
+  handlers:
+    - name: start
+      command: sh /home/ansible/basicinstall.sh
+
