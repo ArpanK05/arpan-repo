@@ -16,21 +16,26 @@
     - name: deploy-tomcat
       ansible.builtin.copy:
         src: "{{ destin }}"
-        dest: root/server/apache*tomcat/webapps/ 
-      script: /root/apa*tomcat*/bin/startup.sh
+        dest: /root/server/apache*tomcat/webapps/ 
+      ansible.builtin.command:
+        cmd: /root/apa*tomcat*/bin/startup.sh
 
     - name: start-docker
       ansible.builtin.service:
         name: docker
         state: start
       notify:
-        - run-docker
+        - create-docker-image
+        - create-docker-conatiner
 
   handlers:
-    - name: run-docker
+    - name: create-docker-image
       ansible.builtin.command:
         cmd: docker build -it arp-tomcat:1 .         
-        cmd: docker run -itdp "80:8080" arp-tomcat:1
+          
+    - name: create-docker-container
+      ansible.builtin.command:
+       cmd: docker run -itdp "80:8080" arp-tomcat:1
 
   vars:
     source: /root/project/onlinebookstore-2.war
