@@ -21,7 +21,7 @@
         state: restarted
       notify:
         - create-docker-image
-        - create-docker-conatiner
+        - create-docker-container
 
   handlers:
     - name: create-docker-image
