@@ -18,7 +18,7 @@
     - name: start-docker
       ansible.builtin.service:
         name: docker
-        state: start
+        state: started
       notify:
         - create-docker-image
         - create-docker-conatiner
