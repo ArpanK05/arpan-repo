@@ -26,7 +26,7 @@
   handlers:
     - name: create-docker-image
       ansible.builtin.command:
-        cmd: docker build -it arp-tomcat:1 .         
+        cmd: docker build -t arp-tomcat:1 .         
           
     - name: create-docker-container
       ansible.builtin.command:
