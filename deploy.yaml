@@ -12,9 +12,9 @@
         src: "{{ source }}"
         dest: "{{ destin }}"
         mode: 755
-      ansible.builtin.command:
-        cmd: /home/att/server/apa*tomcat*/bin/startup.sh
-
+      notify:
+      - restart
+      
     - name: start-docker
       ansible.builtin.service:
         name: docker
@@ -31,7 +31,12 @@
     - name: create-docker-container
       ansible.builtin.command:
        cmd: docker run -itdp "80:8080" arp-tomcat:1
+       
+    - name: restart
+      ansible.builtin.command:
+        cmd: /home/att/server/apa*tomcat*/bin/startup.sh
+
 
   vars:
     source: /home/att/project/target/onlinebookstore-2.war
-    destin: /home/att
+    destin: /home/att/server/apache-tomcat-9.0.65/webapps/
