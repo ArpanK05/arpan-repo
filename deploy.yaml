@@ -6,17 +6,12 @@
   connection: ssh
   gather_facts: yes
 
-  tasks:
-    - name: copy-to-node
+  tasks:    
+    - name: deploy-tomcat
       ansible.builtin.copy:
         src: "{{ source }}"
         dest: "{{ destin }}"
         mode: 755
-    
-    - name: deploy-tomcat
-      ansible.builtin.copy:
-        src: "{{ destin }}"
-        dest: /home/att/server/apache*tomcat/webapps/ 
       ansible.builtin.command:
         cmd: /home/att/server/apa*tomcat*/bin/startup.sh
 
