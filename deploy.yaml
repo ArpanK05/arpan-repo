@@ -38,5 +38,5 @@
        cmd: docker run -itdp "80:8080" arp-tomcat:1
 
   vars:
-    source: /home/att/project/onlinebookstore-2.war
+    source: /home/att/project/target/onlinebookstore-2.war
     destin: /home/att
