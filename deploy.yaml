@@ -2,7 +2,7 @@
 
 - hosts: dev
   become: yes
-  user: ansible
+  user: att
   connection: ssh
   gather_facts: yes
 
@@ -16,9 +16,9 @@
     - name: deploy-tomcat
       ansible.builtin.copy:
         src: "{{ destin }}"
-        dest: /root/server/apache*tomcat/webapps/ 
+        dest: /home/att/server/apache*tomcat/webapps/ 
       ansible.builtin.command:
-        cmd: /root/apa*tomcat*/bin/startup.sh
+        cmd: /home/att/server/apa*tomcat*/bin/startup.sh
 
     - name: start-docker
       ansible.builtin.service:
@@ -39,4 +39,4 @@
 
   vars:
     source: /root/project/onlinebookstore-2.war
-    destin: /home/ansible
+    destin: /home/att
