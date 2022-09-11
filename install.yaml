@@ -2,20 +2,20 @@
 
 - hosts: dev 
   become: yes
-  user: ansible
+  user: att
   connection: ssh
   gather_facts: yes
 
   tasks:
     - name: copy to node
       ansible.builtin.copy:
-        src: /home/ansible/basicinstall.sh
-        dest: /home/ansible
+        src: /home/att/basicinstall.sh
+        dest: /home/att
         mode: 755
       notify:
         - start
   
   handlers:
     - name: start
-      command: sh /home/ansible/basicinstall.sh
+      command: sh /home/att/basicinstall.sh
 
